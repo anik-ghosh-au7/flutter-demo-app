@@ -1,16 +1,7 @@
-# demo_app_1
+# flutter demo search app
 
-A new Flutter application.
+A search application in Flutter.
 
-## Getting Started
+## Demo video
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [video link](https://www.loom.com/share/ef94e23d2e3649acb091d139f90802f7)
