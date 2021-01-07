@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:demo_app_1/data.dart' as dataList;
 import 'package:demo_app_1/star.dart';
 
 class SuggestionsPage extends StatefulWidget {
