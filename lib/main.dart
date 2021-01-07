@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
   var info = new Map();
   String query = "the";
   int from = 0;
+  int size = 7;
 
   void setFrom(int i) {
     Future.delayed(new Duration(hours: 0, minutes: 0, seconds: 2), () async {
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           .sublist(
               0,
               this.from + 10 < info["numberOfResults"]
-                  ? this.from + 10
+                  ? this.from + this.size
                   : this.from + (info["numberOfResults"] - this.from));
     });
 
@@ -67,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         result: info,
         loading: false,
         from: this.from,
-        size: 10,
+        size: this.size,
         setFrom: this.setFrom,
       ),
     ));

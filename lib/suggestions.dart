@@ -91,8 +91,14 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                           width: 280,
                                           child: ListTile(
                                             title: Text(
-                                              widget.result["data"][index]
-                                                  ["original_title"],
+                                              widget
+                                                          .result["data"][index]
+                                                              ["original_title"]
+                                                          .length <
+                                                      40
+                                                  ? widget.result["data"][index]
+                                                      ["original_title"]
+                                                  : '${widget.result["data"][index]["original_title"].substring(0, 39)}...',
                                               style: TextStyle(
                                                 fontSize: 20.0,
                                               ),
@@ -102,8 +108,8 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                                               ["authors"]
                                                           .join(", ")
                                                           .length >
-                                                      100
-                                                  ? 'By: ${widget.result["data"][index]["authors"].join(", ").substring(0, 100)}...'
+                                                      50
+                                                  ? 'By: ${widget.result["data"][index]["authors"].join(", ").substring(0, 49)}...'
                                                   : 'By: ${widget.result["data"][index]["authors"].join(", ")}',
                                               style: TextStyle(
                                                 fontSize: 15.0,
