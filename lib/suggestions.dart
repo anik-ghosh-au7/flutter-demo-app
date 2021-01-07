@@ -90,29 +90,75 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                           height: 110,
                                           width: 280,
                                           child: ListTile(
-                                            title: Text(
-                                              widget
-                                                          .result["data"][index]
-                                                              ["original_title"]
-                                                          .length <
-                                                      40
-                                                  ? widget.result["data"][index]
-                                                      ["original_title"]
-                                                  : '${widget.result["data"][index]["original_title"].substring(0, 39)}...',
-                                              style: TextStyle(
-                                                fontSize: 20.0,
+                                            title: Tooltip(
+                                              padding: EdgeInsets.all(5),
+                                              height: 35,
+                                              textStyle: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.grey,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey,
+                                                    spreadRadius: 1,
+                                                    blurRadius: 1,
+                                                    offset: Offset(0, 1),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              message:
+                                                  'By: ${widget.result["data"][index]["original_title"]}',
+                                              child: Text(
+                                                widget
+                                                            .result["data"]
+                                                                [index][
+                                                                "original_title"]
+                                                            .length <
+                                                        40
+                                                    ? widget.result["data"]
+                                                            [index]
+                                                        ["original_title"]
+                                                    : '${widget.result["data"][index]["original_title"].substring(0, 39)}...',
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                ),
                                               ),
                                             ),
-                                            subtitle: Text(
-                                              widget.result["data"][index]
-                                                              ["authors"]
-                                                          .join(", ")
-                                                          .length >
-                                                      50
-                                                  ? 'By: ${widget.result["data"][index]["authors"].join(", ").substring(0, 49)}...'
-                                                  : 'By: ${widget.result["data"][index]["authors"].join(", ")}',
-                                              style: TextStyle(
-                                                fontSize: 15.0,
+                                            subtitle: Tooltip(
+                                              padding: EdgeInsets.all(5),
+                                              height: 35,
+                                              textStyle: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.grey,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey,
+                                                    spreadRadius: 1,
+                                                    blurRadius: 1,
+                                                    offset: Offset(0, 1),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              message:
+                                                  'By: ${widget.result["data"][index]["authors"].join(", ")}',
+                                              child: Text(
+                                                widget.result["data"][index]
+                                                                ["authors"]
+                                                            .join(", ")
+                                                            .length >
+                                                        50
+                                                    ? 'By: ${widget.result["data"][index]["authors"].join(", ").substring(0, 49)}...'
+                                                    : 'By: ${widget.result["data"][index]["authors"].join(", ")}',
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                ),
                                               ),
                                             ),
                                             isThreeLine: true,
