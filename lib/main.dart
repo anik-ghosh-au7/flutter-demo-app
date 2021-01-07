@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:demo_app_1/data.dart' as data;
+import 'package:demo_app_1/data.dart' as dataList;
 import 'package:demo_app_1/star.dart';
 
 void main() => runApp(new MyApp());
@@ -10,30 +9,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final jsonEncoder = JsonEncoder();
+    var info = new Map();
     String query = "the";
+
+    info["data"] = dataList.DemoData.data
+        .where((element) =>
+            jsonDecode(jsonEncoder.convert(element))["original_title"]
+                .toLowerCase()
+                .startsWith(query.toLowerCase()))
+        .toList();
+    info["numberOfResults"] = info["data"].length;
+    info["time"] = 90;
     return new MaterialApp(
       home: new SuggestionsPage(
-        infoList: data.DemoData.data
-            .where((element) =>
-                jsonDecode(jsonEncoder.convert(element))["original_title"]
-                    .toLowerCase()
-                    .startsWith(query.toLowerCase()))
-            .toList(),
+        result: info,
         loading: false,
-        size: 10,
         from: 0,
+        size: 10,
       ),
     );
   }
 }
 
 class SuggestionsPage extends StatefulWidget {
-  List infoList = [];
+  Map result;
   bool loading = true;
   int size = 5;
   int from = 0;
 
-  SuggestionsPage({Key key, this.infoList, this.loading, this.size, this.from})
+  SuggestionsPage({Key key, this.result, this.loading, this.size, this.from})
       : super(key: key);
 
   @override
@@ -44,9 +48,6 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
   final jsonEncoder = JsonEncoder();
   @override
   Widget build(BuildContext context) {
-    print(widget.loading);
-    print(widget.infoList.length);
-
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("Infinite List"),
@@ -59,14 +60,15 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                 child: Container(
                   color: Colors.white,
                   height: 20,
-                  child: Text('${0} results found in ${0} ms'),
+                  child: Text(
+                      '${widget.result["numberOfResults"]} results found in ${widget.result["time"]} ms'),
                 ),
               ),
             ),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) => Container(
-                    child: (index < widget.infoList.length)
+                    child: (index < widget.result["data"].length)
                         ? Container(
                             margin: const EdgeInsets.all(0.5),
                             padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -84,7 +86,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
                                         child: Image.network(
-                                          widget.infoList[index]
+                                          widget.result["data"][index]
                                               ["image_medium"],
                                           fit: BoxFit.fill,
                                         ),
@@ -105,20 +107,20 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                             width: 280,
                                             child: ListTile(
                                               title: Text(
-                                                widget.infoList[index]
+                                                widget.result["data"][index]
                                                     ["original_title"],
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                 ),
                                               ),
                                               subtitle: Text(
-                                                widget.infoList[index]
+                                                widget.result["data"][index]
                                                                 ["authors"]
                                                             .join(", ")
                                                             .length >
                                                         100
-                                                    ? 'By: ${widget.infoList[index]["authors"].join(", ").substring(0, 100)}...'
-                                                    : 'By: ${widget.infoList[index]["authors"].join(", ")}',
+                                                    ? 'By: ${widget.result["data"][index]["authors"].join(", ").substring(0, 100)}...'
+                                                    : 'By: ${widget.result["data"][index]["authors"].join(", ")}',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                 ),
@@ -138,8 +140,8 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                                     size: 48,
                                                   ),
                                                   child: StarDisplay(
-                                                      value: widget
-                                                              .infoList[index][
+                                                      value: widget.result[
+                                                              "data"][index][
                                                           "average_rating_rounded"]),
                                                 ),
                                               ),
@@ -148,7 +150,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                                     const EdgeInsets.fromLTRB(
                                                         10, 5, 0, 0),
                                                 child: Text(
-                                                  '(${widget.infoList[index]["average_rating"]} avg)',
+                                                  '(${widget.result["data"][index]["average_rating"]} avg)',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                   ),
@@ -163,7 +165,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                                     const EdgeInsets.fromLTRB(
                                                         27, 10, 0, 0),
                                                 child: Text(
-                                                  'Pub: ${widget.infoList[index]["original_publication_year"]}',
+                                                  'Pub: ${widget.result["data"][index]["original_publication_year"]}',
                                                   style: TextStyle(
                                                     fontSize: 12.0,
                                                   ),
@@ -185,7 +187,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                 title: Center(
                                   child: RichText(
                                     text: TextSpan(
-                                      text: widget.infoList.length > 0
+                                      text: widget.result["data"].length > 0
                                           ? "No more results"
                                           : 'No results found',
                                       style: TextStyle(
@@ -196,7 +198,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                   ),
                                 ),
                               ))),
-                itemCount: widget.infoList.length + 1,
+                itemCount: widget.result["data"].length + 1,
               ),
             ),
           ],
