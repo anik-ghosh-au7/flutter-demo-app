@@ -21,12 +21,16 @@ class MyApp extends StatelessWidget {
     info["numberOfResults"] = info["data"].length;
     info["time"] = 90;
     return new MaterialApp(
-      home: new SuggestionsPage(
+        home: new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Infinite List"),
+      ),
+      body: new SuggestionsPage(
         result: info,
         loading: false,
         from: 0,
         size: 10,
       ),
-    );
+    ));
   }
 }
