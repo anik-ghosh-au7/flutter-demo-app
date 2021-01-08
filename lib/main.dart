@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     info = new Map();
-    query = "the endt";
+    query = "the";
     from = 0;
     size = 7;
   }
