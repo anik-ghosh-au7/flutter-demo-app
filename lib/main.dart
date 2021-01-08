@@ -15,10 +15,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var info = new Map();
-  String query = "the";
-  int from = 0;
-  int size = 7;
+  var info;
+  String query;
+  int from;
+  int size;
+
+  @override
+  void initState() {
+    super.initState();
+    info = new Map();
+    query = "the";
+    from = 0;
+    size = 7;
+  }
 
   void setFrom(int i) {
     Future.delayed(new Duration(hours: 0, minutes: 0, seconds: 2), () async {
@@ -74,53 +83,3 @@ class _MyAppState extends State<MyApp> {
     ));
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   int from = 0;
-//   void setFrom(int i) {
-//     print(i);
-//     this.from = i;
-//     setInfo();
-//   }
-//
-//   var info = new Map();
-//   String query = "the";
-//
-//   void setInfo() {
-//     final jsonEncoder = JsonEncoder();
-//     info["data"] = dataList.DemoData.data
-//         .where((element) =>
-//             jsonDecode(jsonEncoder.convert(element))["original_title"]
-//                 .toLowerCase()
-//                 .startsWith(query.toLowerCase()))
-//         .toList()
-//         .sublist(0, this.from + 10);
-//     info["numberOfResults"] = dataList.DemoData.data
-//         .where((element) =>
-//             jsonDecode(jsonEncoder.convert(element))["original_title"]
-//                 .toLowerCase()
-//                 .startsWith(query.toLowerCase()))
-//         .toList()
-//         .length;
-//     info["time"] = 90;
-//     print('list size ${info["data"].length}');
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     setInfo();
-//     return new MaterialApp(
-//         home: new Scaffold(
-//       appBar: new AppBar(
-//         title: new Text("Infinite List"),
-//       ),
-//       body: new SuggestionsPage(
-//         result: info,
-//         loading: false,
-//         from: this.from,
-//         size: 10,
-//         setFrom: this.setFrom,
-//       ),
-//     ));
-//   }
-// }
