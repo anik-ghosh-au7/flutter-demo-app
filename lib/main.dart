@@ -24,14 +24,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     info = new Map();
-    query = "the";
+    query = "the endt";
     from = 0;
     size = 7;
   }
 
   void setFrom(int i) {
     Future.delayed(new Duration(seconds: 2), () async {
-      print(i);
       setState(() {
         from = i;
       });
@@ -61,8 +60,6 @@ class _MyAppState extends State<MyApp> {
                   ? this.from + this.size
                   : this.from + (info["numberOfResults"] - this.from));
     });
-
-    print('list size ${info["data"].length}');
   }
 
   @override

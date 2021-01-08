@@ -40,12 +40,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
         Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
-              // print(widget.result["data"]);
               if (index == widget.result["data"].length) {
-                // widget.loading = true;
-                // widget.setFrom(5);
-                print(
-                    'length ${widget.result["data"].length} ${index} ${widget.result["numberOfResults"]}');
                 var offset = (widget.from | 0) + widget.size;
                 if (widget.result["numberOfResults"] > offset) {
                   widget.loading = true;
