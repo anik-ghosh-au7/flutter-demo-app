@@ -4,8 +4,9 @@ import 'package:demo_app_1/star.dart';
 
 typedef void MyCallback(int foo);
 
+// ignore: must_be_immutable
 class SuggestionsPage extends StatefulWidget {
-  Map result;
+  final result;
   bool loading = true;
   int size = 5;
   int from = 0;
