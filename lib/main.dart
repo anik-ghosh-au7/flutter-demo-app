@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setFrom(int i) {
-    Future.delayed(new Duration(hours: 0, minutes: 0, seconds: 2), () async {
+    Future.delayed(new Duration(seconds: 2), () async {
       print(i);
       setState(() {
         from = i;
